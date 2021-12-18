@@ -10,8 +10,10 @@
 # #
 import datetime
 
+LOG_FILE_NAME = '../test/test4.txt'
+
 # テスト時、ここtestx.txtのxを1～4に変更すると、用意したテストで実行できる
-f = open('../test/test4.txt', 'r', encoding='UTF-8')
+f = open(LOG_FILE_NAME, 'r', encoding='UTF-8')
 
 count = 0
 fault_condition = False

@@ -13,9 +13,11 @@
 import sys
 import datetime
 
+LOG_FILE_NAME = '../test/test1.txt'
+
 
 # テスト時、ここtestx.txtのxを1～4に変更すると、用意したテストで実行できる
-f = open('../test/test1.txt', 'r', encoding='UTF-8')
+f = open(LOG_FILE_NAME, 'r', encoding='UTF-8')
 N = int(sys.argv[1])
 
 # 例外処理 Nが行数より多い場合
@@ -23,7 +25,6 @@ if sum([1 for _ in f]) < N:
     print("Nがファイルの行数より大きいです。")
     sys.exit()
     
-print("check")
 count = 0
 hyphen_count = 0
 fault_condition = False
@@ -33,10 +34,10 @@ fail_server_address = []
 Subnet_failure = []
 
 # 本処理
+f = open(LOG_FILE_NAME, 'r', encoding='UTF-8')
 datalist = f.readlines()
 print("check", datalist)
 for data in datalist:
-    print("check")
     print(data)
     datasplit = data.split(",")
     index = len(datasplit)
@@ -97,13 +98,22 @@ if fault_condition == True:
 elif time_count_start == [] or count < N:
     print("故障したサーバIPv4アドレス: なし")
     print("故障期間: なし")
+    print("サブネットマスク故障。")
+    f = open(LOG_FILE_NAME, 'r', encoding='UTF-8')
+    datalist = f.readlines()
+    count = 0
+    for data in datalist:
+        datasplit = data.split(",")
+        index = len(datasplit)
+
+        if datasplit[index-1].replace( '\n' , '' ) == "-":
+            count += 1
+            print("サブネットマスク故障機関", count, Subnet_failure[count-1])
 else :
     for i in range(count):
         print("故障したサーバIPv4アドレス:", fail_server_address[i])
         print("故障期間:", time_count_end[i] - time_count_start[i])
 
-print(time_count_start)
-print(Subnet_failure)
 
 
 f.close()

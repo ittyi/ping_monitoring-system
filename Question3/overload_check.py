@@ -15,13 +15,15 @@
 import sys
 import datetime
 
+LOG_FILE_NAME = '../test/test4.txt'
+
 m = int(sys.argv[1])
 t = int(sys.argv[2])
 print ("m:", sys.argv[1]) 
 print ("t:", sys.argv[2]) 
 
 # テスト時、ここtestx.txtのxを1～4に変更すると、用意したテストで実行できる
-f = open('../test/test4.txt', 'r', encoding='UTF-8')
+f = open(LOG_FILE_NAME, 'r', encoding='UTF-8')
 
 # 例外処理 mが行数より多い場合
 if sum([1 for _ in f]) < m:
@@ -39,6 +41,7 @@ overload_pick_start = []
 overload_pick_end = []
 
 # 本処理
+f = open(LOG_FILE_NAME, 'r', encoding='UTF-8')
 datalist = f.readlines()
 for data in datalist:
     datasplit = data.split(",")

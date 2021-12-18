@@ -13,9 +13,10 @@
 import sys
 import datetime
 
+LOG_FILE_NAME = '../test/test1.txt'
 
 # テスト時、ここtestx.txtのxを1～4に変更すると、用意したテストで実行できる
-f = open('../test/test4.txt', 'r', encoding='UTF-8')
+f = open(LOG_FILE_NAME, 'r', encoding='UTF-8')
 N = int(sys.argv[1])
 
 # 例外処理 Nが行数より多い場合
@@ -30,6 +31,7 @@ time_count_end = []
 fail_server_address = []
 
 # 本処理
+f = open(LOG_FILE_NAME, 'r', encoding='UTF-8')
 datalist = f.readlines()
 for data in datalist:
     datasplit = data.split(",")
