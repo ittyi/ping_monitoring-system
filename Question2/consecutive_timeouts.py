@@ -1,17 +1,28 @@
-# 故障状態のサーバアドレスとそのサーバの故障期間を出力するプログラムを作成
+# N回以上連続してタイムアウトした場合にのみ
+# 故障とみなすように、設問1のプログラムを拡張。
 # 
-# pingがタイムアウトした場合を故障とみなし、最初にタイムアウトしたときから、
-# 次にpingの応答が返るまでを故障期間とする。
+# Nはプログラムのパラメータとして与えられるようにする。
 #
-# 実行：python server_failure_detection.py
+# 実行例：python consecutive_timeouts.py N
+# python consecutive_timeouts.py 2
+# python consecutive_timeouts.py 5
+# python consecutive_timeouts.py 10
+# python consecutive_timeouts.py 11
 # 
-# 改善点：datetimeの関数化
 # #
+import sys
 import datetime
+
 
 # テスト時、ここtestx.txtのxを1～4に変更すると、用意したテストで実行できる
 f = open('../test/test4.txt', 'r', encoding='UTF-8')
+N = int(sys.argv[1])
 
+# 例外処理 Nが行数より多い場合
+if sum([1 for _ in f]) < N:
+    print("Nがファイルの行数より大きいです。")
+    sys.exit()
+    
 count = 0
 fault_condition = False
 time_count_start = []
@@ -55,10 +66,11 @@ for data in datalist:
 # 最後まで「-」で終わってしまった場合の処理 if
 # 最後まで「-」が一つもなく正常 elif
 # 「-」が一つ以上あり、応答が返ってきた場合
+print ("N:", sys.argv[1]) 
 if fault_condition == True:
     print("故障中のサーバIPv4アドレス:", fail_server_address[0])
     print("故障期間: 継続中")
-elif time_count_start == []:
+elif time_count_start == [] or count < N:
     print("故障したサーバIPv4アドレス: なし")
     print("故障期間: なし")
 else :
