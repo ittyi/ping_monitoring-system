@@ -109,7 +109,7 @@ for data in datalist:
 if fault_condition == True:
     print("故障中のサーバIPv4アドレス:", fail_server_address[0])
     print("故障期間: 継続中")
-elif time_count_start == [] or failure_count < int(sys.argv[1]):
+elif time_count_start == [] or failure_count < m:
     print("故障したサーバIPv4アドレス: なし")
     print("故障期間: なし")
 else :
